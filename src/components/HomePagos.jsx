@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 export const HomePagos = () => {
   return (
     <div>
-        <div className="container mx-auto px-4">
-            <div className="justify-center">
+        <div className="container mx-auto my-auto px-4 mt-10">
+            <div className="">
                 <div className="shadow-2xl rounded-lg">
                     <div className="divide-y divide-dashed">
                         <div className='flex justify-center mt-10 mb-5 py-5'>

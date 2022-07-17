@@ -13,7 +13,7 @@ export const HomePagos = () => {
                             <img src="https://pagosmunicipioacapulco.mx/assets/img/municipio.png" alt="" className='max-h-40'/>
                         </div>
                         <div className="my-10 py-10">
-                            <h1 className='font-bold text-3xl text-gray-900'>Pagos en linea</h1>
+                            <h1 className='font-sans text-xl font-bold text-3xl text-gray-900'>Pagos en linea</h1>
                             <p class=" font-base text-base text-gray-600 mt-5">Desde ahora puedes realizar tus pagos completamente en linea.</p>
                         </div>
                     </div>

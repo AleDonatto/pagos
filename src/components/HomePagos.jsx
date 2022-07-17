@@ -7,7 +7,7 @@ export const HomePagos = () => {
     <div>
         <div className="container mx-auto my-auto px-4 mt-10">
             <div className="">
-                <div className="shadow-2xl rounded-lg">
+                <div className="shadow-2xl rounded-lg bg-white">
                     <div className="divide-y divide-dashed">
                         <div className='flex justify-center mt-10 mb-5 py-5'>
                             <img src="https://pagosmunicipioacapulco.mx/assets/img/municipio.png" alt="" className='max-h-40'/>

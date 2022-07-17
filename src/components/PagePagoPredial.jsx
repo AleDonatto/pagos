@@ -35,7 +35,7 @@ export const PagePagoPredial = () => {
   
   return (
     <div className='conatiner mx-auto px-10 py-10'>
-      <div className="shadow-2xl rounded-lg p-10">
+      <div className="shadow-2xl rounded-lg p-10 bg-white">
         <h1 className="font-semibold text-xl text-gray-600 sm:text-2xl">Predial</h1>
         <p className="text-lg text-gray-600 sm:text-2xl text-left mt-10">Ingrese clave catastral</p>
 

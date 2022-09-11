@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+//import SampleOne from '.samples/SampleOne'
+
 
 
 export const PagePagoPredial = () => {
@@ -32,7 +34,8 @@ export const PagePagoPredial = () => {
     setpagoLinea(false)
   }
   
-  
+  const [toggle, setToggle] = useState(false) 
+
   return (
     <div className='conatiner mx-auto px-10 py-10'>
       <div className="shadow-2xl rounded-lg p-10 bg-white">
@@ -51,7 +54,11 @@ export const PagePagoPredial = () => {
         {
           showform
           ? 
+
+
           <div className=''>
+                      <h1 className='font-semibold text-lg m-5'>IMPORTE TOTAL:</h1>
+                      <h5 className='font-semibold text-lg m-5'>$0.00</h5>
             <div className='grid grid-cols-2 gap-4'>
               <div className='shadow-2xl rounded-lg p-10 mt-10'>
                 <h1 className='font-semibold text-lg m-5'>Contribuyente</h1>
@@ -76,9 +83,12 @@ export const PagePagoPredial = () => {
               </div>
             </div>
 
+
+            
+
             <div className="grid grid-col-1">
               <div className='shadow-2xl rounded-lg p-10 mt-10'>
-                <h1 className='font-semibold text-lg m-10'>Peridos de Pago</h1>
+                <h1 className='font-semibold text-lg m-10'>Periodos de Pago</h1>
                 <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                   <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
                     <table className='min-w-full leading-normal'>
@@ -124,15 +134,28 @@ export const PagePagoPredial = () => {
                     </button>
                   </div>
                   <div className="">
-                    <button className="rounded bg-blue-500 hover:bg-blue-700 text-white py-2 px-10">
+                    <button onClick={() => setToggle(!toggle)} className="rounded bg-blue-500 hover:bg-blue-700 text-white py-2 px-10">
                       Orden Desglozada
                     </button>
+                    
+{toggle &&(
+  
+<ul class="list-group">
+<h5 className='font-semibold text-lg m-5'>Al corriente de pago</h5>
+<h1 className='font-semibold text-lg m-5'>Pago de predial: $9,000.00</h1>
+
+<li class="list-group-itemp">PRO EDUCACIÓN: $3,000.00</li>
+<li class="list-group-itemp">PRO TURISMO:   $3,000.00</li>
+<li class="list-group-itemp">PRO AGUA:      $3,000.00</li>
+</ul>
+)}
+
                   </div>
                 </div>
               </div>
             </div>
-          </div> 
-          : 
+           </div>
+           :
           <div className=''>
           </div>
         }

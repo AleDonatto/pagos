@@ -10,7 +10,7 @@ export const HomePagos = () => {
                 <div className="shadow-2xl rounded-lg bg-white">
                     <div className="divide-y divide-dashed">
                         <div className='flex justify-center mt-10 mb-5 py-5'>
-                            <img src="https://pagosmunicipioacapulco.mx/assets/img/municipio.png" alt="" className='max-h-40'/>
+                            <img src="http://coyucadebenitez.guerrero.gob.mx/wp-content/themes/municipios_2016/img/escudo-header.png?fbclid=IwAR2lIisz3qQZXHuE4maKsAg8VvIyRghW2iIk20dLOqDEHqXF29OO9o3F0Dc" alt="" className='max-h-40'/>
                         </div>
                         <div className="my-10 py-10">
                             <h1 className='font-sans text-xl font-bold text-3xl text-gray-900'>Pagos en linea</h1>

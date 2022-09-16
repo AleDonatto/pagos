@@ -6,6 +6,10 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import { IconButton, Tooltip } from '@material-ui/core';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { useNavigate } from 'react-router-dom';  // Import react-route-dom
+ 
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,10 +23,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
 }));
+
 function getSteps() {
   return ['Complete la informacion', 'Periodos de pago'];
 }
-
 
 export const PagePagoPredial = () => {
 
@@ -42,6 +46,8 @@ export const PagePagoPredial = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
   const steps = getSteps();
+  const navigate = useNavigate();
+
 
   const isStepSkipped = (step) => {
     return skipped.has(step);
@@ -84,12 +90,20 @@ export const PagePagoPredial = () => {
     setpagoLinea(false)
   }
 
+  const handleRegresar = () => {
+    return navigate(-1)
+  }
 
-  
-  
   return (
     <div className='conatiner mx-auto px-10 py-10'>
       <div className="shadow-2xl rounded-lg p-10 bg-white">
+        <Grid xs={1} justifyContent={'center'}>
+          <Tooltip title="Regresar">
+            <IconButton aria-label="regresar" onClick={handleRegresar}>
+              <ArrowBackIcon />
+            </IconButton>
+          </Tooltip> 
+        </Grid>
         <h1 className="font-semibold text-xl text-gray-600 sm:text-2xl">Predial</h1>
         <p className="text-lg text-gray-600 sm:text-2xl text-left mt-10">Ingrese clave catastral</p>
 

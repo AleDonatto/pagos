@@ -1,4 +1,27 @@
 import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+  },
+  button: {
+    marginRight: theme.spacing(1),
+  },
+  instructions: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+}));
+function getSteps() {
+  return ['Complete la informacion', 'Periodos de pago'];
+}
 
 
 export const PagePagoPredial = () => {
@@ -14,6 +37,35 @@ export const PagePagoPredial = () => {
     {periodo: '2021', concepto: 'Descuento Predial', total: 19635.60},
     {periodo: '2021', concepto: 'Descuento Predial', total: 19635.60},
   ]
+  //stepper
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [skipped, setSkipped] = React.useState(new Set());
+  const steps = getSteps();
+
+  const isStepSkipped = (step) => {
+    return skipped.has(step);
+  };
+
+  const handleNext = () => {
+    let newSkipped = skipped;
+    if (isStepSkipped(activeStep)) {
+      newSkipped = new Set(newSkipped.values());
+      newSkipped.delete(activeStep);
+    }
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped(newSkipped);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+  //end stepper
 
   const handleinputClave = (e) => {
     setclaveCatastro(e.target.value)
@@ -31,6 +83,8 @@ export const PagePagoPredial = () => {
   const handleCancelPagoLinea = () => {
     setpagoLinea(false)
   }
+
+
   
   
   return (
@@ -142,61 +196,151 @@ export const PagePagoPredial = () => {
           pagoLinea 
           ? 
           <div className='shadow-2xl rounded-lg p-10 mt-10'>
-            <div className=''>
-              <form className=''>
+            
+            <div className={classes.root}>
+              <Stepper activeStep={activeStep}>
+                {steps.map((label, index) => {
+                  const stepProps = {};
+                  const labelProps = {};
 
-                <div className='grid gap-6 mb-6 lg:grid-cols-2 mx-10'>
-                  <div>
-                    <label for="folio" class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Folio</label>
-                    <input type="text" id="folio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                    placeholder="Folio" required />
-                  </div>
-                  <div>
-                    <label for="referecia" class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Referecia</label>
-                    <input type="text" id="referencia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                    placeholder="Referencia" required />
-                  </div>
-
-                  <div>
-                    <label for="concepto" class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Concepto de Pago</label>
-                    <input type="text" id="concepto" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                    placeholder="Cencepto de Pago" required />
-                  </div>
-
-                  <div>
-                    <label for="importe" class=" text-left block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Importe</label>
-                    <input type="text" id="importe" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                    placeholder="Importe" required />
-                  </div>
-
-                  <div>
-                    <label for="email" class=" text-left block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
-                    <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                    placeholder="Email" required />
-                  </div>
-
-                  <div>
-                    <label for="telefono" class=" text-left block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Telefono</label>
-                    <input type="text" id="telefono" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
-                    placeholder="Telefono" required />
-                  </div>
-
-                  <div>
-                    <button type='button' className='rounded bg-red-500 hover:bg-red-700 text-white py-2 px-10'
-                    onClick={handleCancelPagoLinea}>
-                      Cancelar
-                    </button>
-                  </div>
-                  <div>
-                    <button type='button' className='rounded bg-blue-500 hover:bg-blue-700 text-white py-2 px-10'>
-                      Continuar
-                    </button>
-                  </div>
+                  if (isStepSkipped(index)) {
+                    stepProps.completed = false;
+                  }
+                  return (
+                    <Step key={label} {...stepProps}>
+                      <StepLabel {...labelProps}>{label}</StepLabel>
+                      
+                    </Step>
+                  );
+                })}
+              </Stepper>
+            <div>
+            {activeStep === steps.length ? (
+                <div>
+                  <Typography className={classes.instructions}>
+                    All steps completed - you&apos;re finished
+                  </Typography>
+                  <Button onClick={handleReset} className={classes.button}>Reset</Button>
                 </div>
-                
-              </form>
-            </div>
+              ) : (
+              <div>
+                {/*<Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>*/}
+                {
+                  activeStep === 0
+                  ?
+                  <div>
+                    <div className=''>
+                      <form className=''>
+
+                        <div className='grid gap-6 mb-6 lg:grid-cols-2 mx-10'>
+                          <div>
+                            <label for="folio" class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Folio</label>
+                            <input type="text" id="folio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                            placeholder="Folio" required />
+                          </div>
+                          <div>
+                            <label for="referecia" class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Referecia</label>
+                            <input type="text" id="referencia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                            placeholder="Referencia" required />
+                          </div>
+
+                          <div>
+                            <label for="concepto" class="text-left block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Concepto de Pago</label>
+                            <input type="text" id="concepto" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                            placeholder="Cencepto de Pago" required />
+                          </div>
+
+                          <div>
+                            <label for="importe" class=" text-left block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Importe</label>
+                            <input type="text" id="importe" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                            placeholder="Importe" required />
+                          </div>
+
+                          <div>
+                            <label for="email" class=" text-left block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
+                            <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                            placeholder="Email" required />
+                          </div>
+
+                          <div>
+                            <label for="telefono" class=" text-left block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Telefono</label>
+                            <input type="text" id="telefono" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                            placeholder="Telefono" required />
+                          </div>
+
+                          <div>
+                            <button type='button' className='rounded bg-red-500 hover:bg-red-700 text-white py-2 px-10'
+                            onClick={handleCancelPagoLinea}>
+                              Cancelar
+                            </button>
+                          </div>
+                          <div>
+                            <button type='button' className='rounded bg-blue-500 hover:bg-blue-700 text-white py-2 px-10'>
+                              Guardar Informacion
+                            </button>
+                          </div>
+                        </div>
+                        
+                      </form>
+                    </div>
+                  </div>
+                  :
+                  <div>
+                    <div>
+
+                      <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                          
+                          <Typography variant="h4" gutterBottom>
+                            Seleccione una de las opciones para realizar el pago:
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Button color ="primary" variant ='outlined' target={'_blank'} href='https://buy.stripe.com/test_cN29Dc1E80gO9WwcMN'>Pago impuesto predial de 1 año</Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Button color ="secondary" variant ='contained' target={'_blank'} href='https://buy.stripe.com/test_5kA7v41E8fbI2u4bII'>Pago impuesto predial de 2 años </Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Button color ="primary" variant ='outlined' target={'_blank'} href='https://buy.stripe.com/test_cN29Dc1E80gO9WwcMN'>Pago impuesto predial de 1 año</Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Button color ="secondary" variant ='outlined' target={'_blank'} href='https://buy.stripe.com/test_3cs5mWciMaVs9Ww002'>Pago impuesto predial de 3 años</Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Button color ="primary" variant ='contained' target={'_blank'} href='https://buy.stripe.com/test_fZe02CdmQ3t0d8I147'>Pago impuesto predial de 4 años</Button>                    
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Button color ="secondary" variant ='outlined' target={'_blank'} href='https://buy.stripe.com/test_3cs5mWciMaVs9Ww002'>Pago impuesto predial de 5 años</Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Button color ="default" variant ='contained' target={'_blank'} href='https://buy.stripe.com/test_3cseXw0A42oWd8IcMR'>Pago impuesto predial de 6 años c/factura</Button>
+                        </Grid>
+                      </Grid>
+
+                    </div>
+                  </div>
+                }
+                <div className='' style={{marginTop: 30}}>
+                  <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                    Regresar
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    className={classes.button}
+                  >
+                    {activeStep === steps.length - 1 ? 'FInalizar' : 'Siguiente'}
+                  </Button>
+                </div>
+              </div>
+            )}
+      </div>
+    </div>
           </div> 
+          
           :
           <div></div>
         }
